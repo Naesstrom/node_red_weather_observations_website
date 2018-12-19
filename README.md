@@ -80,7 +80,7 @@ yeah, didn't know what I should call it... but it's the flow combining Temperatu
 This is to make it more readable and easier to combine the sensors at a later stage
 * **Join**  
 This one is important, it combines the different streams and waits until there is something from all of them before it combines them and sends them on. Without this it would send the data but uncomplete, missing bits and parts depending on timing.
-* Combine sensors  
+* **Combine sensors**  
 This combines the different sensors in a function that looks like this  
   ```
   msg.siteid = "replace with your ID";
