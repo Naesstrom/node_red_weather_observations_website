@@ -1,4 +1,4 @@
-# node_red_weather_observations_website
+# Node-red to global weather observations website WOW
 Node red flow to send MQTT data to the official WOW weather site. located at https://wow.metoffice.gov.uk/
 
 ## Background
@@ -22,13 +22,13 @@ The URL to send your request to is: http://wow.metoffice.gov.uk/automaticreading
 ### Mandatory information
 All uploads must contain 4 pieces of mandatory information plus at least 1 piece of weather data.
 
-* *Site ID - siteid:*
+* **Site ID - siteid:**  
 The unique numeric id of the site
-* *Authentication Key - siteAuthenticationKey:*
+* **Authentication Key - siteAuthenticationKey:**  
 A pin number, chosen by the user to authenticate with WOW.
-* *Date - dateutc:*
+* **Date - dateutc:**  
 Each observation must have a date, in the date encoding specified below.
-* *Software Type - softwaretype*
+* **Software Type - softwaretype**  
 The name of the software, to identify which piece of software and which version is uploading data
 
 ### Date Encoding
@@ -67,20 +67,21 @@ _disclamer: I'm no Node-Red guru so I'm sure there are other and more streamline
 ![Alt text](/images/wow_weather_allnodes.png?raw=true "Node-red-flow")
 
 ### Input nodes
-* Timestamp: Adds UTC timestamp every 5 minutes and also sets the interval of sending data
+* **Timestamp:**
+Adds UTC timestamp every 5 minutes and also sets the interval of sending data
 The following nodes in this _Stream_ is to set the timestamp to the encoding mentioned [above](#Date Encoding)
-* Climate:Temp, Climate:HUM, Climate:Pressure  
+* **Climate:Temp, Climate:HUM, Climate:Pressure**  
 These are my mqtt input nodes that I currently have set up. Feel free to add more and change the Join and combine functions.
-* First layer functions  
+* **First layer functions**  
 These are the ones named **to F** and **to inhg**, since the WOW website requried information in Farenheit and mm merqury we need to change the format from Celcius and hPa
-* Middle stream of nodes  
+* **Middle stream of nodes**  
 yeah, didn't know what I should call it... but it's the flow combining Temperature and Humidity to calculate dew point.
-* Set message topic  
+* **Set message topic**  
 This is to make it more readable and easier to combine the sensors at a later stage
-* Join  
+* **Join**  
 This one is important, it combines the different streams and waits until there is something from all of them before it combines them and sends them on. Without this it would send the data but uncomplete, missing bits and parts depending on timing.
-* Combine sensors
-  This combines the different sensors in a function that looks like this
+* Combine sensors  
+This combines the different sensors in a function that looks like this
 ```
 msg.siteid = "replace with your ID";
 msg.auth = "replace with your set password";
