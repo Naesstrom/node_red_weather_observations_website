@@ -81,17 +81,17 @@ This is to make it more readable and easier to combine the sensors at a later st
 * **Join**  
 This one is important, it combines the different streams and waits until there is something from all of them before it combines them and sends them on. Without this it would send the data but uncomplete, missing bits and parts depending on timing.
 * Combine sensors  
-This combines the different sensors in a function that looks like this
-```
-msg.siteid = "replace with your ID";
-msg.auth = "replace with your set password";
-msg.url = "http://wow.metoffice.gov.uk/automaticreading?";
-msg.payload = "siteid=" + msg.siteid + "&siteAuthenticationKey=" + msg.auth + "&dateutc=" + msg.payload.dateutc + "&humidity=" + msg.payload.humidity + "&baromin=" + msg.payload.pressure + "&tempf=" + msg.payload.temp + "&dewptf=" + msg.payload.dewpoint +"&softwaretype=weathersoftware1.0";
-msg.url = msg.url+msg.payload;
-return msg;
-```
-Replace **msg.siteid** and **msg.auth** with your own information from the WOW website.
-in **msg.payload** it combines the different sensors with the [Weather Data](weather data) that you have and you need to change this to what you are using.
+This combines the different sensors in a function that looks like this  
+  ```
+  msg.siteid = "replace with your ID";
+  msg.auth = "replace with your set password";
+  msg.url = "http://wow.metoffice.gov.uk/automaticreading?";
+  msg.payload = "siteid=" + msg.siteid + "&siteAuthenticationKey=" + msg.auth + "&dateutc=" + msg.payload.dateutc + "&humidity=" + msg.payload.humidity + "&baromin=" + msg.payload.pressure + "&tempf=" + msg.payload.temp + "&dewptf=" + msg.payload.dewpoint +"&softwaretype=weathersoftware1.0";
+  msg.url = msg.url+msg.payload;
+  return msg;
+  ```
+  Replace **msg.siteid** and **msg.auth** with your own information from the WOW website.
+  in **msg.payload** it combines the different sensors with the [Weather Data](weather data) that you have and you need to change this to what you are using.
 
 ## Links:
 Encoding, formatting and data instructions
