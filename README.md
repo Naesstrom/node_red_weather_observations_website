@@ -126,5 +126,6 @@ https://wow.metoffice.gov.uk/observations/details?site_id=24855254-ce02-e911-946
 ## Changelog
 **1.0** _(2018-12-19)_
 First release
+
 **1.1** _(2018-12-20)_
 Added function to round numbers and change the humidity to a number to.
