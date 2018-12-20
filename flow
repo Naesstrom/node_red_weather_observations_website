@@ -10,13 +10,13 @@
         "id": "2c7409a1.df33f6",
         "type": "debug",
         "z": "164f144c.cb50cc",
-        "name": "",
+        "name": "Sent",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1281,
+        "x": 1261,
         "y": 494,
         "wires": []
     },
@@ -45,10 +45,10 @@
         "type": "function",
         "z": "164f144c.cb50cc",
         "name": "combine sensors",
-        "func": "msg.siteid = \"123456789\";\nmsg.auth = \"123456789\";\nmsg.url = \"http://wow.metoffice.gov.uk/automaticreading?\";\nmsg.payload = \"siteid=\" + msg.siteid + \"&siteAuthenticationKey=\" + msg.auth + \"&dateutc=\" + msg.payload.dateutc + \"&humidity=\" + msg.payload.humidity + \"&baromin=\" + msg.payload.pressure + \"&tempf=\" + msg.payload.temp + \"&dewptf=\" + msg.payload.dewpoint +\"&softwaretype=weathersoftware1.0\";\nmsg.url = msg.url+msg.payload;\nreturn msg;\n\n\n//softhttp://wow.metoffice.gov.uk/automaticreading?siteid=123456&siteAuthenticationKey=654321&dateutc=2011-02-02+10%3A32%3A55&winddir=230&windspeedmph=12&windgustmph=12&windgustdir=25&humidity=90&dewptf=68.2&tempf=70&rainin=0&dailyrainin=5&baromin=29.1&soiltempf=25&soilmoisture=25&visibility=25&softwaretype=weatherware1.0",
+        "func": "msg.siteid = \"Replace with your site ID\";\nmsg.auth = \"Replace with your password\";\nmsg.url = \"http://wow.metoffice.gov.uk/automaticreading?\";\nmsg.payload = \"siteid=\" + msg.siteid + \"&siteAuthenticationKey=\" + msg.auth + \"&dateutc=\" + msg.payload.dateutc + \"&humidity=\" + msg.payload.humidity + \"&baromin=\" + msg.payload.pressure + \"&tempf=\" + msg.payload.temp + \"&dewptf=\" + msg.payload.dewpoint +\"&softwaretype=weathersoftware1.0\";\nmsg.url = msg.url+msg.payload;\nreturn msg;\n\n\n//softhttp://wow.metoffice.gov.uk/automaticreading?siteid=123456&siteAuthenticationKey=654321&dateutc=2011-02-02+10%3A32%3A55&winddir=230&windspeedmph=12&windgustmph=12&windgustdir=25&humidity=90&dewptf=68.2&tempf=70&rainin=0&dailyrainin=5&baromin=29.1&soiltempf=25&soilmoisture=25&visibility=25&softwaretype=weatherware1.0",
         "outputs": 1,
         "noerr": 0,
-        "x": 1044,
+        "x": 1054,
         "y": 450,
         "wires": [
             [
@@ -88,7 +88,7 @@
             [
                 "51eed76a.a40b18",
                 "351f43e0.eb6acc",
-                "df92ff78.21a92"
+                "e053342f.f87a78"
             ]
         ]
     },
@@ -133,7 +133,7 @@
         "wires": [
             [
                 "532a2709.1225e8",
-                "5ea0accc.247634"
+                "2ea271a2.78a71e"
             ]
         ]
     },
@@ -214,13 +214,13 @@
         "id": "e02429dc.5cea98",
         "type": "debug",
         "z": "164f144c.cb50cc",
-        "name": "",
+        "name": "Reply",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1494,
+        "x": 1474,
         "y": 449,
         "wires": []
     },
@@ -520,11 +520,69 @@
         ]
     },
     {
+        "id": "2ea271a2.78a71e",
+        "type": "function",
+        "z": "164f144c.cb50cc",
+        "name": "Round",
+        "func": "// List all the variables that you want rounded\nvar pressure = msg.payload.pressure;\nvar temp = msg.payload.temp;\nvar humidity = msg.payload.humidity;\nvar dewpoint = msg.payload.dewpoint;\nvar dateutc = msg.payload.dateutc;\n// Create a new payload with rounded numbers\nmsg.payload = {\n  pressure: pressure.toFixed(2),\n  temp : temp.toFixed(2),\n  humidity: humidity.toFixed(2),\n  dewpoint: dewpoint.toFixed(2),\n  dateutc: dateutc,\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 932,
+        "y": 373,
+        "wires": [
+            [
+                "5ea0accc.247634",
+                "cc13d797.7e88f8"
+            ]
+        ]
+    },
+    {
+        "id": "cc13d797.7e88f8",
+        "type": "debug",
+        "z": "164f144c.cb50cc",
+        "name": "Rounded",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1006,
+        "y": 307,
+        "wires": []
+    },
+    {
+        "id": "e053342f.f87a78",
+        "type": "change",
+        "z": "164f144c.cb50cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 396,
+        "y": 544,
+        "wires": [
+            [
+                "df92ff78.21a92"
+            ]
+        ]
+    },
+    {
         "id": "ba80ab3d.961428",
         "type": "mqtt-broker",
         "z": "",
-        "name": "mqttbrokername",
-        "broker": "https://brokerip",
+        "name": "MQTT server",
+        "broker": "https://broker_ip",
         "port": "1883",
         "clientid": "",
         "usetls": false,

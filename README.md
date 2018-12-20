@@ -92,6 +92,26 @@ This combines the different sensors in a function that looks like this
   ```
   Replace **msg.siteid** and **msg.auth** with your own information from the WOW website.
   in **msg.payload** it combines the different sensors with the [Weather Data](weather data) that you have and you need to change this to what you are using.
+* **Round**  
+This takes all the variables and rounds them down to two decimals
+   ```
+   // List all the variables that you want rounded
+   var pressure = msg.payload.pressure;
+   var temp = msg.payload.temp;
+   var humidity = msg.payload.humidity;
+   var dewpoint = msg.payload.dewpoint;
+   var dateutc = msg.payload.dateutc;
+   // Create a new payload with rounded numbers
+   msg.payload = {
+     pressure: pressure.toFixed(2),
+     temp : temp.toFixed(2),
+     humidity: humidity.toFixed(2),
+     dewpoint: dewpoint.toFixed(2),
+     dateutc: dateutc,
+   };
+   return msg;
+   ```
+   The first part creates new variables from you joined values so you have to match these. Once all variables are created it makes a new payload with the rounded numbers. Don't forget that you still need to add the UTC date but with no change here. Otherwise the URL posting will be wrong.
 
 ## Links:
 Encoding, formatting and data instructions
@@ -102,3 +122,9 @@ https://www.smhi.se/vadret/vadret-i-sverige/mina-observationer-wow
 
 My site
 https://wow.metoffice.gov.uk/observations/details?site_id=24855254-ce02-e911-9462-0003ff598847
+
+## Changelog
+**1.0** _(2018-12-19)_
+First release
+**1.1** _(2018-12-20)_
+Added function to round numbers and change the humidity to a number to.
